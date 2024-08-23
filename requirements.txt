@@ -10,5 +10,5 @@ llama-index-embeddings-cohere
 llama-index-llms-cohere
 llama-index-embeddings-cohere
 llama-index-postprocessor-rankllm-rerank
-pip install --upgrade llama_index
+upgrade llama_index
 
