@@ -7,3 +7,6 @@ pandas==2.1.0
 scipy==1.11.3
 llama-index-llms-cohere
 llama-index-embeddings-cohere
+llama-index-llms-cohere
+llama-index-embeddings-cohere
+llama-index-postprocessor-rankllm-rerank
