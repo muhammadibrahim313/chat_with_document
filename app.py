@@ -5,14 +5,10 @@ import tempfile
 import uuid
 
 import streamlit as st
-
-# Importing necessary modules from llama_index
-from llama_index.core import Settings
-from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.core import Settings, VectorStoreIndex, SimpleDirectoryReader, PromptTemplate
 from llama_index.llms.cohere import Cohere
 from llama_index.embeddings.cohere import CohereEmbedding
 from llama_index.postprocessor.cohere_rerank import CohereRerank
-from llama_index.core import PromptTemplate
 
 # Setting up custom fonts and colors
 st.markdown(
@@ -98,12 +94,15 @@ with st.sidebar:
                     Settings.embed_model = embed_model
                     index = VectorStoreIndex.from_documents(docs, show_progress=True)
 
-                    # Create a cohere reranker 
-                    cohere_rerank = CohereRerank(api_key=API_KEY)
-
                     # Create the query engine
                     Settings.llm = llm
-                    query_engine = index.as_query_engine(streaming=True, node_postprocessors=[cohere_rerank])
+                    query_engine = index.as_query_engine(streaming=True)
+
+                    # Setting up reranker
+                    reranker = CohereRerank(
+                        top_n=2, model="rerank-english-v2.0", api_key=API_KEY
+                    )
+                    query_engine.node_postprocessors.append(reranker)
 
                     # Customizing prompt template
                     qa_prompt_tmpl_str = (
@@ -173,8 +172,6 @@ if prompt := st.chat_input("What's up?"):
         for chunk in streaming_response.response_gen:
             full_response += chunk
             message_placeholder.markdown(full_response + "▌")
-
-        # full_response = query_engine.query(prompt)
 
         message_placeholder.markdown(full_response)
     
