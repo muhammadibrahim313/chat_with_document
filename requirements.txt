@@ -1,4 +1,4 @@
-gradio==3.36.1
+Streamlit
 llama_index
 cohere
 torch==2.0.1
@@ -6,3 +6,4 @@ numpy==1.25.1
 pandas==2.1.0
 scipy==1.11.3
 llama-index-llms-cohere
+llama-index-embeddings-cohere
