@@ -12,7 +12,7 @@ from llama_index.postprocessor.cohere_rerank import CohereRerank
 nest_asyncio.apply()
 
 # put your API key here, find one at: https://dashboard.cohere.com/api-keys
-API_KEY = 'ziEpsRreaJzBi5HUDap7gMecJWXX69O26Hf71Kxo'
+API_KEY = ''
 
 # setup llm & embedding model
 llm = Cohere(api_key=API_KEY, model="command-r-plus")
